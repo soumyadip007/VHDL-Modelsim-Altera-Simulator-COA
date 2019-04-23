@@ -1,0 +1,31 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use ieee. std_logic_arith.all;
+use ieee. std_logic_unsigned.all;
+
+entity T_Flip_Flop is
+ port(
+   t,clock : in STD_LOGIC;
+   q: out STD_LOGIC
+  );
+end T_Flip_Flop;
+
+architecture bhv of T_Flip_Flop is
+       signal tmp: std_logic;
+begin
+ 
+process (clock) is
+   
+begin
+  if (clock='1' and clock'event) then
+  if (t ='0' ) then
+    tmp<= tmp;
+  elsif (t ='1' ) then
+     tmp<= (not tmp);
+  end if; 
+  
+  end if;
+
+end process;
+q<= tmp;
+end bhv;
