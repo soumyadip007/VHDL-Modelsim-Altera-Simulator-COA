@@ -1,0 +1,19 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity two_bit_comp is
+ port(
+   inA,inB: std_logic_vector(1 downto 0);
+   greater,equal,less:out std_logic
+  );
+end two_bit_comp;
+
+architecture bhv of two_bit_comp is
+begin
+  greater<= '1' when (inA>inB)
+  else '0';
+   equal<= '1' when (inA=inB)
+  else '0';
+   less<= '1' when (inA<inB)
+  else '0';
+end bhv;
