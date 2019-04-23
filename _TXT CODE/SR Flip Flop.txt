@@ -1,0 +1,38 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use ieee. std_logic_arith.all;
+use ieee. std_logic_unsigned.all;
+
+entity SR_FF is
+ port(
+
+   s,r,clock : in STD_LOGIC;
+   q,qbar: out STD_LOGIC
+  );
+end SR_FF;
+
+architecture bhv of SR_FF is
+begin
+    
+process (clock) is
+   variable tmp: std_logic;
+
+begin
+  if (clock='1' and clock'event) then
+  if (s ='0' and r = '0') then
+      tmp:=tmp;
+   elsif (s ='0' and r = '1') then
+     tmp:='0';
+   elsif (s ='1' and r = '0') then
+     tmp:='1';
+  else
+     tmp:='Z';
+  end if; 
+  
+  end if;
+
+q<= tmp;
+qbar<= (not tmp);
+  end process;
+
+end bhv;
