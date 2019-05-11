@@ -1,0 +1,43 @@
+library ieee;
+    use ieee.std_logic_1164.all;
+    use ieee.std_logic_unsigned.all;
+    
+    entity bth is
+        port(m: in std_logic_vector(4 downto 1);
+            mc: in std_logic_vector(4 downto 1);
+            o: out std_logic_vector(8 downto 1)
+            );
+        end bth;
+        architecture arc of bth is
+            begin
+                process(m,mc)
+                    variable ea: std_logic_vector(4 downto 1);
+                    variable b: std_logic_vector(4 downto 1);
+                    variable q: std_logic_vector(4 downto 1);
+                    variable qn: std_logic_vector(2 downto 1);
+                    begin
+                        ea:="0000";
+                        b:=m;
+                        q:=mc;
+                        qn:=q(1)&'0';
+                        for i in 4 downto 1 loop
+                        if qn ="01" then 
+                        ea:=ea (4 downto 1) + b (4 downto 1);
+                        q:= ea (1) & q (4 downto 2);
+                        ea:=ea(4) & ea(4 downto 2);
+                        qn:= q(1)&qn(2);
+                        elsif qn="10" then
+                         ea:=ea (4 downto 1) + not(b (4 downto 1))+1;
+                        q:= ea (1) & q (4 downto 2);
+                        ea:=ea(4) & ea(4 downto 2);
+                        qn:= q(1)&qn(2);
+                        else
+                        q:= ea (1) & q (4 downto 2);
+                        ea:=ea(4) & ea(4 downto 2);
+                        qn:= q(1)&qn(2);
+                    end if;
+                end loop;
+                o<=ea(4 downto 1) & q(4 downto 1);
+            end process;
+        end arc;
+        
